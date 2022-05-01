@@ -1,0 +1,66 @@
+.page {
+  width: 100vw;
+  height: 100vh;
+  background-image: url('../../assets/background.png');
+  background-size: cover;
+  background-repeat: repeat-y;
+  background-position: center;
+}
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 2rem 4rem;
+}
+
+.header_title {
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: navy;
+  text-decoration: none;
+  transition: all 200ms ease-in;
+}
+
+.header_title:hover {
+  opacity: 0.8;
+}
+
+.content_container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content_container_left {
+  width: 20%;
+}
+
+.content_container_right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: navy;
+}
+
+.desc {
+  font-size: 1.75rem;
+  color: navy;
+  opacity: 0.85;
+}
+
+.btns {
+  margin-top: 2.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}

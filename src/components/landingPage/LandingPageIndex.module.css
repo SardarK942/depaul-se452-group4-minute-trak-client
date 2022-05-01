@@ -1,0 +1,29 @@
+.content_container_left {
+  width: 20%;
+}
+
+.content_container_right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: navy;
+}
+
+.desc {
+  font-size: 1.75rem;
+  color: navy;
+  opacity: 0.85;
+}
+
+.btns {
+  margin-top: 2.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
