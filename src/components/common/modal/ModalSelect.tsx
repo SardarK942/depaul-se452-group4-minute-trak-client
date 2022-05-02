@@ -35,14 +35,18 @@ function ModalSelect({ projects, works, setModal, handleAddRow }: Props) {
   return (
     <ModalDimmer handleClose={() => setModal(false)}>
       <Modal onClick={(e) => e.stopPropagation()}>
-        <Typography variant="h4">Select a project</Typography>
+        <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
+          Select a project
+        </Typography>
         <Select
           sx={{ width: '30rem', marginTop: '1.5rem', height: '3.5rem' }}
           value={selectedId}
           onChange={handleChangeSelect}
         >
           {projects?.map((project) => (
-            <MenuItem value={project.pId}>{project.projectName}</MenuItem>
+            <MenuItem value={project.pId} sx={{ fontWeight: 'bold' }}>
+              {project.projectName}
+            </MenuItem>
           ))}
         </Select>
         {error && (
@@ -72,10 +76,8 @@ function ModalSelect({ projects, works, setModal, handleAddRow }: Props) {
 }
 
 const Modal = styled.div`
-  /* width: 100%; */
-  /* max-width: 36rem; */
   min-width: 20rem;
-  padding: 3rem 2rem;
+  padding: 2rem 2rem;
   background-color: white;
   border-radius: 1rem;
   box-shadow: 1px 1px 2px 0px rgb(255, 255, 255, 0.3);
