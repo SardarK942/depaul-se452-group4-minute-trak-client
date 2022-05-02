@@ -125,7 +125,7 @@ function TimesheetForm({ data, tId, projects }: TimesheetFormProps) {
                   <TdSelectHour
                     idx={idx}
                     prop={column.prop}
-                    value={work.hours[column.prop]}
+                    value={work.hours[column.prop] || null}
                     handleChangeHourSelect={handleChangeHourSelect}
                     isReadOnly={timesheetDetail.isSubmitted}
                   />
