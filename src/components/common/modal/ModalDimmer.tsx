@@ -8,7 +8,7 @@ type Props = {
 
 function ModalDimmer({ children, handleClose }: Props) {
   return (
-    <Dimmer onClick={() => handleClose && handleClose()}>
+    <Dimmer onMouseDown={() => handleClose && handleClose()}>
       <Container>{children}</Container>
     </Dimmer>
   );
