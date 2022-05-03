@@ -11,7 +11,7 @@ interface Props {
   handleAddRow: (pId: number) => void;
 }
 
-function ModalSelect({ projects, works, setModal, handleAddRow }: Props) {
+function ModalSelectProject({ projects, works, setModal, handleAddRow }: Props) {
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [error, setError] = useState<boolean>(false);
 
@@ -34,7 +34,7 @@ function ModalSelect({ projects, works, setModal, handleAddRow }: Props) {
 
   return (
     <ModalDimmer handleClose={() => setModal(false)}>
-      <Modal onClick={(e) => e.stopPropagation()}>
+      <Modal onMouseDown={(e) => e.stopPropagation()}>
         <Typography variant="h4" sx={{ fontWeight: 'bold' }}>
           Select a project
         </Typography>
@@ -86,4 +86,4 @@ const Modal = styled.div`
   flex-direction: column;
 `;
 
-export default ModalSelect;
+export default ModalSelectProject;
