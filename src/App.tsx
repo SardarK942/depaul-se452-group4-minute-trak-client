@@ -4,6 +4,7 @@ import LandingPage from './pages/landingPage/LandingPage';
 import LandingPageIndex from './components/landingPage/LandingPageIndex';
 import LandingPageLogin from './components/landingPage/LandingPageLogin';
 import Timesheet from './pages/timesheetPage/TimesheetPage';
+import RequestPage from './pages/requestPage/RequestPage';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
         <Route path="/home" element={<Layout />}>
           <Route index element={<h1>HOME</h1>} />
           <Route path="timesheet" element={<Timesheet />} />
-          <Route path="request" element={<h1>request</h1>} />
+          <Route path="request" element={<RequestPage />} />
           <Route path="profile" element={<h1>profile</h1>} />
         </Route>
 
