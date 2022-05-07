@@ -4,32 +4,40 @@ import styled from '@emotion/styled';
 const Tag = styled.span`
   border-radius: 10rem;
   padding: 0.25rem 0.75rem;
-  text-align: center;
+  margin: auto;
+  font-size: 0.75rem;
 `;
 
-const StyledTag = styled(Tag)<{ color: string; isOn: boolean }>`
-  background-color: ${(props) => (props.isOn ? props.color : '#e0e0e0')};
-  color: ${(props) => (props.isOn ? 'white' : '#f0f0f0')};
+const statusTagTheme: { [status: string]: { bg: string; color: string } } = {
+  draft: {
+    bg: '#c0c0c0',
+    color: '#ffffff',
+  },
+  pending: {
+    bg: '#337ea0',
+    color: '#ffffff',
+  },
+  approved: {
+    bg: '#67ce8b',
+    color: '#ffffff',
+  },
+  rejected: {
+    bg: '#bb4545',
+    color: '#ffffff',
+  },
+};
+
+type statusType = 'draft' | 'pending' | 'approved' | 'rejected';
+
+const StyledStatusTag = styled(Tag)<{ status: statusType }>`
+  background-color: ${(props) => statusTagTheme[props.status].bg};
+  color: ${(props) => statusTagTheme[props.status].color};
 `;
 
-/* Components  */
-interface TagProps {
-  isOn: boolean;
-  style?: React.CSSProperties;
-}
-
-export function SubmittedTag({ isOn, style }: TagProps) {
+export function StatusTag(props: { status: statusType; style?: React.CSSProperties }) {
   return (
-    <StyledTag color="#0085c3" isOn={isOn} style={style}>
-      Submitted
-    </StyledTag>
-  );
-}
-
-export function ApprovedTag({ isOn, style }: TagProps) {
-  return (
-    <StyledTag color="#339b57" isOn={isOn} style={style}>
-      Approved
-    </StyledTag>
+    <StyledStatusTag status={props.status} style={props.style}>
+      {props.status.toUpperCase()}
+    </StyledStatusTag>
   );
 }
