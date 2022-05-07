@@ -1,6 +1,7 @@
 import { Typography } from '@mui/material';
 import { TimesheetListItem, TimesheetListData } from '../../../types/timesheetTypes';
-import { ApprovedTag, SubmittedTag } from '../../common/tag/Tag';
+import { getStatus } from '../../../utility/common';
+import { StatusTag } from '../../common/tag/Tag';
 import styles from './TimesheetList.module.css';
 
 interface TimesheetListProps {
@@ -12,7 +13,7 @@ function TimesheetList({ data: timesheetList, handleClickListItem }: TimesheetLi
   return (
     <ul className={styles.list}>
       {timesheetList?.map((item: TimesheetListItem) => {
-        const { tId, startDate, endDate, isSubmitted, isApproved } = item;
+        const { tId, startDate, endDate, isSubmitted, isApproved, isRejected } = item;
         return (
           <li key={tId} id={String(tId)} className={styles.list_item} onClick={handleClickListItem}>
             <div className={styles.list_item_left}>
@@ -20,8 +21,7 @@ function TimesheetList({ data: timesheetList, handleClickListItem }: TimesheetLi
               <Typography variant="body1">~ {endDate}</Typography>
             </div>
             <div className={styles.list_item_right}>
-              <SubmittedTag isOn={isSubmitted} />
-              <ApprovedTag isOn={isApproved} style={{ marginTop: '0.25rem' }} />
+              <StatusTag status={getStatus(isSubmitted, isApproved, isRejected)} />
             </div>
           </li>
         );

@@ -16,6 +16,7 @@ export const fakeTimesheetList: TimesheetListData = [
     endDate: '2022-04-14',
     isSubmitted: false,
     isApproved: false,
+    isRejected: false,
   },
   {
     tId: 13,
@@ -23,13 +24,15 @@ export const fakeTimesheetList: TimesheetListData = [
     endDate: '2022-03-17',
     isSubmitted: true,
     isApproved: false,
+    isRejected: false,
   },
   {
     tId: 12,
     startDate: '2022-02-18',
     endDate: '2022-03-03',
     isSubmitted: true,
-    isApproved: true,
+    isApproved: false,
+    isRejected: true,
   },
   {
     tId: 11,
@@ -37,6 +40,7 @@ export const fakeTimesheetList: TimesheetListData = [
     endDate: '2022-02-17',
     isSubmitted: true,
     isApproved: true,
+    isRejected: false,
   },
 ];
 
@@ -47,6 +51,7 @@ export const fakeTimesheetDetail: { [index: number | string]: TimesheetDetail } 
     endDate: '2022-02-17',
     isSubmitted: true,
     isApproved: true,
+    isRejected: false,
     pto: {
       hours: {
         '2022-02-14': 8,
@@ -89,7 +94,8 @@ export const fakeTimesheetDetail: { [index: number | string]: TimesheetDetail } 
     startDate: '2022-02-18',
     endDate: '2022-03-03',
     isSubmitted: true,
-    isApproved: true,
+    isApproved: false,
+    isRejected: true,
     pto: {
       hours: {
         '2022-02-18': 8,
@@ -141,6 +147,7 @@ export const fakeTimesheetDetail: { [index: number | string]: TimesheetDetail } 
     endDate: '2022-03-17',
     isSubmitted: true,
     isApproved: false,
+    isRejected: false,
     pto: {
       hours: {},
     },
@@ -175,6 +182,7 @@ export const fakeTimesheetDetail: { [index: number | string]: TimesheetDetail } 
     endDate: '2022-04-14',
     isSubmitted: false,
     isApproved: false,
+    isRejected: false,
     works: [],
     pto: {
       hours: {
