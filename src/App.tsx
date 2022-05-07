@@ -23,7 +23,7 @@ function App() {
           <Route path="profile" element={<h1>profile</h1>} />
         </Route>
 
-        <Route path="/admin" element={<></>}>
+        <Route path="/admin" element={<h1>This Is Admin Route</h1>}>
           <Route />
         </Route>
       </Routes>

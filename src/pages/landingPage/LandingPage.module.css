@@ -12,7 +12,11 @@
   top: 0;
   left: 0;
   right: 0;
-  padding: 2rem 4rem;
+  padding: 1rem 4rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header_title {

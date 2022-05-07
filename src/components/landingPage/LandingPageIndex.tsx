@@ -14,14 +14,14 @@ function LandingPageIndex() {
         <div className={styles.desc}>Request your time-off</div>
 
         <div className={styles.btns}>
-          <Button onClick={() => navigate('/login')} variant="contained" sx={{ width: '100%', fontSize: 'large' }}>
+          <Button onClick={() => navigate('/login')} variant="contained" sx={{ width: '100%', fontSize: '1.25rem' }}>
             Sign-in
           </Button>
           <Button
             onClick={() => navigate('/signup')}
             variant="contained"
             color="secondary"
-            sx={{ width: '100%', fontSize: 'large', marginLeft: '1rem' }}
+            sx={{ width: '100%', fontSize: '1.25rem', marginLeft: '1rem' }}
           >
             Register
           </Button>
