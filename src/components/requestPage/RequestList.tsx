@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import { ApprovedTag } from '../common/tag/Tag';
+import { StatusTag } from '../common/tag/Tag';
 import styles from './RequestList.module.css';
 
 type Props = {};
@@ -13,7 +13,7 @@ function RequestList({}: Props) {
           <Typography variant="body1">{'2022-04-01 ~ 2022-04-02'}</Typography>
         </div>
         <div className={styles.list_item_right}>
-          <ApprovedTag isOn={true} style={{ marginTop: '0.25rem' }} />
+          <StatusTag status={'approved'} />
         </div>
       </li>
     </ul>
