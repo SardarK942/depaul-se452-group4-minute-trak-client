@@ -13,6 +13,7 @@ export interface TimesheetListItem {
   endDate: string;
   isSubmitted: boolean;
   isApproved: boolean;
+  isRejected: boolean;
 }
 
 /* Timesheet Content */
@@ -22,6 +23,7 @@ export interface TimesheetDetail {
   endDate: string;
   isSubmitted: boolean;
   isApproved: boolean;
+  isRejected: boolean;
   pto: PTO;
   works: Work[];
 }
