@@ -1,6 +1,10 @@
 import styles from './LoginForm.module.css';
 import { Button, TextField, Typography } from '@mui/material';
-import { useInput } from '../../utility/customHooks';
+import { useInput, UseInputProps } from '../../utility/customHooks';
+import authAPI from '../../apis/authAPI';
+import validator from '../../utility/validators';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 interface LoginFormProps {
   isOn: boolean;
@@ -8,23 +12,74 @@ interface LoginFormProps {
 }
 
 function LoginForm({ isOn, handleModeSwap }: LoginFormProps) {
-  const email = useInput('', () => true);
-  const loginPassword = useInput('', () => true);
+  const navigate = useNavigate();
+  const email: UseInputProps = useInput('', validator.email);
+  const password: UseInputProps = useInput('', (value) => value.length > 0);
+  const [error, setError] = useState<string>('');
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (!email.isValid || !password.isValid) return;
+
+    try {
+      const { data } = await authAPI.post('/login', {
+        email: email.value,
+        password: password.value,
+      });
+
+      // Store auth info in the session storage
+      sessionStorage.setItem('email', data.email);
+      sessionStorage.setItem('name', `${data.firstName} ${data.lastName}`);
+      sessionStorage.setItem('token', data.token);
+      navigate('/home');
+      //
+    } catch (e: any) {
+      if (e.response?.status === 400) {
+        setError(e.response.data.error);
+      } else {
+        setError(e.toString());
+      }
+      password.initValue();
+    }
+  }
 
   return (
-    <form className={`${styles.form} ${isOn && styles.isOn}`}>
+    <form onSubmit={handleSubmit} className={`${styles.form} ${isOn && styles.isOn}`}>
       <Typography variant="h4" sx={{ textAlign: 'center', fontWeight: 'bold' }}>
         Login
       </Typography>
-      <TextField {...email} variant="outlined" label="Email" required fullWidth sx={{ marginTop: '2rem' }} />
-      <TextField {...loginPassword} variant="outlined" label="Password" required fullWidth sx={{ marginTop: '1rem' }} />
+      <TextField
+        {...email}
+        error={email.value.length > 0 && !email.isValid}
+        name="email"
+        variant="outlined"
+        label="Email"
+        required
+        fullWidth
+        sx={{ marginTop: '2rem' }}
+      />
+      <TextField
+        {...password}
+        helperText="at least 8 characters"
+        name="password"
+        type="password"
+        variant="outlined"
+        label="Password"
+        required
+        fullWidth
+        sx={{ marginTop: '1rem' }}
+      />
+      <Typography variant="body1" sx={{ color: 'red' }}>
+        {error.length > 0 && error}
+      </Typography>
 
       <Button
-        disabled={!email.isValid || !loginPassword.isValid}
+        type="submit"
+        disabled={!email.isValid || !password.isValid}
         variant="contained"
         size="large"
         fullWidth
-        sx={{ height: '3.5rem', marginTop: '2.5rem' }}
+        sx={{ height: '3.5rem', marginTop: '1.5rem' }}
       >
         Login
       </Button>

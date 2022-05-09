@@ -1,10 +1,18 @@
 import { useState } from 'react';
 
-export const useInput = (initialValue: string, validator?: (value: string) => boolean) => {
+export interface UseInputProps {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  isValid: boolean;
+  setIsValid: React.Dispatch<React.SetStateAction<boolean>>;
+  initValue: () => void;
+}
+
+export function useInput(initialValue: string, validator?: (value: string) => boolean): UseInputProps {
   const [value, setValue] = useState<string>(initialValue);
   const [isValid, setIsValid] = useState<boolean>(false);
 
-  const onChange = (event: any) => {
+  const onChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {
       target: { value },
     } = event;
@@ -22,4 +30,4 @@ export const useInput = (initialValue: string, validator?: (value: string) => bo
   };
 
   return { value, onChange, isValid, setIsValid, initValue };
-};
+}
