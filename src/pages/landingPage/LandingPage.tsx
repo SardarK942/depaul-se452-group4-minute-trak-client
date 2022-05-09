@@ -1,9 +1,26 @@
 import { Button } from '@mui/material';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
+import authAPI from '../../apis/authAPI';
 import styles from './LandingPage.module.css';
 
 function LandingPage() {
   const navigate = useNavigate();
+
+  async function handleGuestEnter() {
+    try {
+      const { data } = await authAPI.get('/guest');
+      // Store auth info in the session storage
+      sessionStorage.setItem('email', data.email);
+      sessionStorage.setItem('name', `${data.firstName} ${data.lastName}`);
+      sessionStorage.setItem('token', data.token);
+      navigate('/home');
+      //
+    } catch (e: any) {
+      console.error(e);
+      alert(e.toString());
+    }
+  }
+
   return (
     <div className={styles.page}>
       <div className={styles.header}>
@@ -11,7 +28,7 @@ function LandingPage() {
           MinuteTrak
         </Link>
         <Button
-          onClick={() => navigate('/home')}
+          onClick={handleGuestEnter}
           variant="contained"
           color="primary"
           sx={{ marginTop: '1rem', fontSize: '1.25rem' }}
