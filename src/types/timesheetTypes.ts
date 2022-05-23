@@ -1,36 +1,36 @@
 /* Fetch Project[] type data from the server. to render dropdown menu items for selecting projects */
 export interface Project {
-  pId: number;
-  projectName: string;
+  pid: number;
+  name: string;
 }
 
 /* Timesheet List */
 export type TimesheetListData = TimesheetListItem[];
 
 export interface TimesheetListItem {
-  tId: number;
+  tid: number;
   startDate: string;
   endDate: string;
-  isSubmitted: boolean;
-  isApproved: boolean;
-  isRejected: boolean;
+  submitted: boolean;
+  approved: boolean;
+  rejected: boolean;
 }
 
 /* Timesheet Content */
 export interface TimesheetDetail {
-  tId: number;
+  tid: number;
   startDate: string;
   endDate: string;
-  isSubmitted: boolean;
-  isApproved: boolean;
-  isRejected: boolean;
+  submitted: boolean;
+  approved: boolean;
+  rejected: boolean;
   pto: PTO;
   works: Work[];
 }
 
 export interface Work {
-  pId: number;
-  projectName: string;
+  pid: number;
+  name: string;
   hours: Hours;
 }
 
