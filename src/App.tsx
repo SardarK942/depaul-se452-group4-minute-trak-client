@@ -3,7 +3,7 @@ import Layout from './pages/layout/Layout';
 import LandingPage from './pages/landingPage/LandingPage';
 import LandingPageIndex from './components/landingPage/LandingPageIndex';
 import LandingPageLogin from './components/landingPage/LandingPageLogin';
-import Timesheet from './pages/timesheetPage/TimesheetPage';
+import TimesheetPage from './pages/timesheetPage/TimesheetPage';
 import RequestPage from './pages/requestPage/RequestPage';
 import AdminPage from './pages/adminPage/AdminPage';
 
@@ -19,7 +19,7 @@ function App() {
 
         <Route path="home" element={<Layout />}>
           <Route index element={<h1>HOME</h1>} />
-          <Route path="timesheet" element={<Timesheet />} />
+          <Route path="timesheet" element={<TimesheetPage />} />
           <Route path="request" element={<RequestPage />} />
           <Route path="profile" element={<h1>profile</h1>} />
         </Route>
