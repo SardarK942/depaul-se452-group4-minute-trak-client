@@ -6,3 +6,11 @@ export function getStatus(isSubmitted: boolean, isApproved: boolean, isRejected:
   if (isSubmitted) return 'pending';
   return 'draft';
 }
+
+export function getSessionStorage(key: string) {
+  return sessionStorage.getItem(key) || null;
+}
+
+export function getSessionToken(): string {
+  return sessionStorage.getItem('token') || '';
+}
