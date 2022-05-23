@@ -13,7 +13,7 @@ function LandingPage() {
       sessionStorage.setItem('email', data.email);
       sessionStorage.setItem('name', `${data.firstName} ${data.lastName}`);
       sessionStorage.setItem('token', data.token);
-      navigate('/home');
+      navigate('/home/timesheet');
       //
     } catch (e: any) {
       console.error(e);

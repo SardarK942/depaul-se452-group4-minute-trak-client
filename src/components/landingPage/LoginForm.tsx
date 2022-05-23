@@ -1,10 +1,10 @@
-import styles from './LoginForm.module.css';
-import { Button, TextField, Typography } from '@mui/material';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useInput, UseInputProps } from '../../utility/customHooks';
 import authAPI from '../../apis/authAPI';
 import validator from '../../utility/validators';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import styles from './LoginForm.module.css';
+import { Button, TextField, Typography } from '@mui/material';
 
 interface LoginFormProps {
   isOn: boolean;
@@ -31,7 +31,7 @@ function LoginForm({ isOn, handleModeSwap }: LoginFormProps) {
       sessionStorage.setItem('email', data.email);
       sessionStorage.setItem('name', `${data.firstName} ${data.lastName}`);
       sessionStorage.setItem('token', data.token);
-      navigate('/home');
+      navigate('/home/timesheet');
       //
     } catch (e: any) {
       if (e.response?.status === 400) {
@@ -60,7 +60,6 @@ function LoginForm({ isOn, handleModeSwap }: LoginFormProps) {
       />
       <TextField
         {...password}
-        helperText="at least 8 characters"
         name="password"
         type="password"
         variant="outlined"
@@ -69,7 +68,7 @@ function LoginForm({ isOn, handleModeSwap }: LoginFormProps) {
         fullWidth
         sx={{ marginTop: '1rem' }}
       />
-      <Typography variant="body1" sx={{ color: 'red' }}>
+      <Typography variant="body1" sx={{ color: 'red', marginTop: '1rem' }}>
         {error.length > 0 && error}
       </Typography>
 
