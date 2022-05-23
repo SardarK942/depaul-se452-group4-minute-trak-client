@@ -15,17 +15,16 @@ import ModalSelect from '../../common/modal/ModalSelectProject';
 import { getStatus } from '../../../utility/common';
 
 interface TimesheetFormProps {
-  tId: number | null;
   data: TimesheetDetail;
   projects: Project[] | null;
   handleSubmit: Function;
 }
 
-function TimesheetForm({ data, tId, projects, handleSubmit }: TimesheetFormProps) {
+function TimesheetForm({ data, projects, handleSubmit }: TimesheetFormProps) {
   const [timesheetDetail, setTimesheetDetail] = useState<TimesheetDetail>(data);
   const [isModalOn, setModal] = useState<boolean>(false);
   const [columns, setColumns] = useState<Column[]>([]);
-  const { startDate, endDate, pto, works, isSubmitted, isApproved, isRejected } = timesheetDetail;
+  const { startDate, endDate, works, submitted, approved, rejected } = timesheetDetail;
 
   useEffect(() => {
     setTimesheetDetail(data);
@@ -38,19 +37,19 @@ function TimesheetForm({ data, tId, projects, handleSubmit }: TimesheetFormProps
     setTimesheetDetail({ ...timesheetDetail, works: newWorks });
   }
 
-  function handleDeleteRow(pId: number): void {
-    const newWorks: Work[] = [...works].filter((work) => work.pId !== pId);
+  function handleDeleteRow(pid: number): void {
+    const newWorks: Work[] = [...works].filter((work) => work.pid !== pid);
     setTimesheetDetail({ ...timesheetDetail, works: newWorks });
   }
 
-  function getProjectName(pId: number): string {
-    return projects!.filter((project) => project.pId === pId)[0].projectName;
+  function getProjectName(pid: number): string {
+    return projects!.filter((project) => project.pid === pid)[0].name;
   }
 
-  function handleAddRow(pId: number): void {
+  function handleAddRow(pid: number): void {
     const newWork: Work = {
-      pId,
-      projectName: getProjectName(pId),
+      pid,
+      name: getProjectName(pid),
       hours: {},
     };
     setTimesheetDetail({ ...timesheetDetail, works: [...works, newWork] });
@@ -94,7 +93,7 @@ function TimesheetForm({ data, tId, projects, handleSubmit }: TimesheetFormProps
       {isModalOn && <ModalSelect projects={projects} works={works} setModal={setModal} handleAddRow={handleAddRow} />}
       <div className={styles.form}>
         <div>
-          <StatusTag status={getStatus(isSubmitted, isApproved, isRejected)} style={{ fontSize: '1.125rem' }} />
+          <StatusTag status={getStatus(submitted, approved, rejected)} style={{ fontSize: '1.125rem' }} />
           <Typography variant="h5" sx={{ marginTop: '0.5rem', fontWeight: 'bold' }}>
             {`Start Date: ${startDate}`}
           </Typography>
@@ -115,38 +114,38 @@ function TimesheetForm({ data, tId, projects, handleSubmit }: TimesheetFormProps
                 </th>
               ))}
               <th style={{ width: '4rem' }}>Total</th>
-              {getStatus(isSubmitted, isApproved, isRejected) === 'draft' && <th style={{ width: '4rem' }}>DELETE</th>}
+              {getStatus(submitted, approved, rejected) === 'draft' && <th style={{ width: '4rem' }}>DELETE</th>}
             </tr>
           </thead>
 
           <tbody>
-            {/* RENDER PTO ROW */}
-            <tr className={styles.pto_tr}>
+            {/* TODO : RENDER PTO ROW  */}
+            {/* <tr className={styles.pto_tr}>
               <td>PTO</td>
               {columns.map((column) => (
                 <td id={column.prop}>{pto.hours[column.prop]}</td>
               ))}
               <td>{calculateRowTotal(data.pto.hours, columns)}</td>
-              {getStatus(isSubmitted, isApproved, isRejected) === 'draft' && <td />}
-            </tr>
+              {getStatus(submitted, approved, rejected) === 'draft' && <td />}
+            </tr> */}
 
             {/* RENDER WORKS ROW*/}
             {works.map((work, idx) => (
-              <tr key={work.pId}>
-                <td>{getProjectName(work.pId)}</td>
+              <tr key={work.pid}>
+                <td>{getProjectName(work.pid)}</td>
                 {columns.map((column) => (
                   <TdSelectHour
                     idx={idx}
                     prop={column.prop}
                     value={work.hours[column.prop] || null}
                     handleChangeHourSelect={handleChangeHourSelect}
-                    isReadOnly={isSubmitted}
+                    isReadOnly={submitted}
                   />
                 ))}
                 <td>{calculateRowTotal(work.hours, columns)}</td>
-                {getStatus(isSubmitted, isApproved, isRejected) === 'draft' && (
+                {getStatus(submitted, approved, rejected) === 'draft' && (
                   <td>
-                    <Button size="small" color="warning" onClick={() => handleDeleteRow(work.pId)}>
+                    <Button size="small" color="warning" onClick={() => handleDeleteRow(work.pid)}>
                       🗑
                     </Button>
                   </td>
@@ -156,7 +155,7 @@ function TimesheetForm({ data, tId, projects, handleSubmit }: TimesheetFormProps
           </tbody>
         </table>
 
-        {getStatus(isSubmitted, isApproved, isRejected) === 'draft' && (
+        {getStatus(submitted, approved, rejected) === 'draft' && (
           <>
             <Button
               variant="outlined"
@@ -170,7 +169,7 @@ function TimesheetForm({ data, tId, projects, handleSubmit }: TimesheetFormProps
               variant="contained"
               sx={{ marginTop: '1rem', height: '3rem' }}
               fullWidth
-              onClick={() => handleSubmit()}
+              onClick={() => handleSubmit(timesheetDetail)}
             >
               Submit
             </Button>

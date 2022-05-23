@@ -13,15 +13,15 @@ function TimesheetList({ data: timesheetList, handleClickListItem }: TimesheetLi
   return (
     <ul className={styles.list}>
       {timesheetList?.map((item: TimesheetListItem) => {
-        const { tId, startDate, endDate, isSubmitted, isApproved, isRejected } = item;
+        const { tid, startDate, endDate, submitted, approved, rejected } = item;
         return (
-          <li key={tId} id={String(tId)} className={styles.list_item} onClick={handleClickListItem}>
+          <li key={tid} id={String(tid)} className={styles.list_item} onClick={handleClickListItem}>
             <div className={styles.list_item_left}>
               <Typography variant="body1">{startDate}</Typography>
               <Typography variant="body1">~ {endDate}</Typography>
             </div>
             <div className={styles.list_item_right}>
-              <StatusTag status={getStatus(isSubmitted, isApproved, isRejected)} />
+              <StatusTag status={getStatus(submitted, approved, rejected)} />
             </div>
           </li>
         );

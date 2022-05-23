@@ -8,7 +8,7 @@ interface Props {
   projects: Project[] | null;
   works: Work[] | undefined;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
-  handleAddRow: (pId: number) => void;
+  handleAddRow: (pid: number) => void;
 }
 
 function ModalSelectProject({ projects, works, setModal, handleAddRow }: Props) {
@@ -27,9 +27,9 @@ function ModalSelectProject({ projects, works, setModal, handleAddRow }: Props) 
     setSelectedId(value);
   }
 
-  function isDuplicatedProject(pId: number, works: Work[] | undefined): boolean {
+  function isDuplicatedProject(pid: number, works: Work[] | undefined): boolean {
     if (!works) return true;
-    return works.filter((work) => work.pId === pId).length > 0;
+    return works.filter((work) => work.pid === pid).length > 0;
   }
 
   return (
@@ -44,8 +44,8 @@ function ModalSelectProject({ projects, works, setModal, handleAddRow }: Props) 
           onChange={handleChangeSelect}
         >
           {projects?.map((project) => (
-            <MenuItem value={project.pId} sx={{ fontWeight: 'bold' }}>
-              {project.projectName}
+            <MenuItem value={project.pid} sx={{ fontWeight: 'bold' }}>
+              {project.name}
             </MenuItem>
           ))}
         </Select>
