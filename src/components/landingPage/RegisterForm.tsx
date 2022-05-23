@@ -23,27 +23,26 @@ function RegisterForm({ isOn, handleModeSwap }: RegisterFormProps) {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    try {
-      authAPI
-        .post('/signup', {
-          email: email.value,
-          password: password.value,
-          firstName: firstName.value,
-          lastName: lastName.value,
-          dob: dob.value,
-          phone: phone.value,
-          address: address.value,
-        })
-        .then(() => alert(`The sign-up request has been submitted.\nYour account is pending review.`))
-        .then(() => handleModeSwap());
-      //
-    } catch (e: any) {
-      if (e.response?.status === 400) {
-        setError(e.response.data.error);
-      } else {
-        setError(e.toString());
-      }
-    }
+
+    authAPI
+      .post('/signup', {
+        email: email.value,
+        password: password.value,
+        firstName: firstName.value,
+        lastName: lastName.value,
+        dob: dob.value,
+        phone: phone.value,
+        address: address.value,
+      })
+      .then(() => alert(`The sign-up request has been submitted.\nYour account is pending review.`))
+      .then(() => handleModeSwap())
+      .catch((e: any) => {
+        if (e.response?.status === 400) {
+          setError(e.response.data.error);
+        } else {
+          setError(e.toString());
+        }
+      });
   }
 
   return (
@@ -51,15 +50,33 @@ function RegisterForm({ isOn, handleModeSwap }: RegisterFormProps) {
       <Typography variant="h4" sx={{ textAlign: 'center', fontWeight: 'bold' }}>
         Register
       </Typography>
-      <TextField {...email} variant="outlined" label="Email" required fullWidth sx={{ marginTop: '2rem' }} />
+      <TextField
+        {...email}
+        error={email.value.length > 0 && !email.isValid}
+        variant="outlined"
+        label="Email"
+        required
+        fullWidth
+        sx={{ marginTop: '2rem' }}
+      />
 
       <Grid container spacing={1} sx={{ marginTop: '0.5rem' }}>
         <Grid item xs={12} sm={6}>
-          <TextField {...password} variant="outlined" label="Password" type="password" required fullWidth />
+          <TextField
+            {...password}
+            helperText="at least 8 characters"
+            error={password.value.length > 0 && !password.isValid}
+            variant="outlined"
+            label="Password"
+            type="password"
+            required
+            fullWidth
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
             {...passwordCheck}
+            error={passwordCheck.value.length > 0 && !passwordCheck.isValid}
             variant="outlined"
             label="Confirm Password"
             type="password"
