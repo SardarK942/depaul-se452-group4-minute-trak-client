@@ -35,6 +35,15 @@ function LandingPage() {
         >
           Guest Enter
         </Button>
+        <Button
+          onClick={() => navigate('/admin')}
+          variant="contained"
+          color="primary"
+          sx={{ marginTop: '1rem', fontSize: '1.25rem' }}
+        >
+          Admin Enter
+        </Button>
+
       </div>
       <div className={styles.content_container}>
         <Outlet />

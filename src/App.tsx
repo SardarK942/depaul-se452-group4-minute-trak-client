@@ -6,6 +6,9 @@ import LandingPageLogin from './components/landingPage/LandingPageLogin';
 import TimesheetPage from './pages/timesheetPage/TimesheetPage';
 import RequestPage from './pages/requestPage/RequestPage';
 import AdminPage from './pages/adminPage/AdminPage';
+import AccountApprovals from './pages/adminPage/adminViews/accountApprovals';
+import TimesheetApprovals from './pages/adminPage/adminViews/timesheetApprovals';
+import TimeOffRequestApprovals from './pages/adminPage/adminViews/timeOffRequestApprovals';
 
 function App() {
   return (
@@ -26,9 +29,9 @@ function App() {
 
         <Route path="admin">
           <Route index element={<AdminPage />} />
-          <Route path="account" element={<h1>Admin account approval Page</h1>} />
-          <Route path="timesheet" element={<h1>Admin timesheet approval Page</h1>} />
-          <Route path="request" element={<h1>Admin request approvalPage</h1>} />
+          <Route path="account" element={<AccountApprovals/>} />
+          <Route path="timesheet" element={<TimesheetApprovals/>} />
+          <Route path="request" element={<TimeOffRequestApprovals/>} />
         </Route>
       </Routes>
     </BrowserRouter>

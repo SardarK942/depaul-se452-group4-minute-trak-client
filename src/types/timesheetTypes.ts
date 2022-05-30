@@ -4,6 +4,16 @@ export interface Project {
   name: string;
 }
 
+export type TimeoffsheetListData = TimeoffsheetListItem[];
+
+export interface TimeoffsheetListItem {
+  rid: number;
+  startDate: string;
+  endDate: string;
+  isApproved: boolean;
+  isPaid: boolean;
+  eid: number;
+}
 /* Timesheet List */
 export type TimesheetListData = TimesheetListItem[];
 
