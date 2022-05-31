@@ -1,16 +1,17 @@
 import { Box, Button, TextField, Typography} from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import adminAPI from '../../../apis/adminAPI';
+import requestAPI from '../../../apis/requestAPI';
 
 // import { useInput } from '../../../utility/customHooks';
 import  NavbarAdmin from '../../../components/common/navbar/NavbarAdmin';
-import { TimeoffsheetListItem } from '../../../types/timesheetTypes';
+import { AdminTimeoffsheetListItem } from '../../../types/timesheetTypes';
 import styles from './adminViews.module.css';
 
 
 function TimeOffRequestApprovals() {
   // const variable = useInput('');
-  const [timeoffsheetList, setTimeoffsheetList] = useState<TimeoffsheetListItem[]>([]);
+  const [timeoffsheetList, setTimeoffsheetList] = useState<AdminTimeoffsheetListItem[]>([]);
 
   
   useEffect(() => {
@@ -22,16 +23,16 @@ function TimeOffRequestApprovals() {
   }, []);
 
 
-  function getAllTimeOffSheets(): Promise<TimeoffsheetListItem[]> {
-    const data = adminAPI
-      .get('/getAllTimeOffRequests')
+  function getAllTimeOffSheets(): Promise<AdminTimeoffsheetListItem[]> {
+    const data = requestAPI
+      .get('/list')
       .then((res) => res.data)
       .catch((e) => alert(e));
 
     return data;
   }
 
-  function respondToTimeOff(bool: boolean, item: TimeoffsheetListItem): any {
+  function respondToTimeOff(bool: boolean, item: AdminTimeoffsheetListItem): any {
     (bool ? item.isApproved = true : item.isApproved = false);
     const data = adminAPI
       .get('/updateTimeRequest', {
@@ -45,7 +46,7 @@ function TimeOffRequestApprovals() {
     return data;
   }
 
-  function filterTimeOffSheetByPending(timeoffsheetList: TimeoffsheetListItem[]): TimeoffsheetListItem[]{
+  function filterTimeOffSheetByPending(timeoffsheetList: AdminTimeoffsheetListItem[]): AdminTimeoffsheetListItem[]{
       return timeoffsheetList; //use filter 
   }
 
@@ -66,7 +67,7 @@ function TimeOffRequestApprovals() {
                   req ID
                 </th>
                 <th scope="col" className="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider">
-                  Employee ID 
+                  Employee Full Name 
                 </th>
                 <th scope="col" className="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider">
                   From Date
@@ -75,7 +76,10 @@ function TimeOffRequestApprovals() {
                   To Date
                 </th>
                 <th scope="col" className="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider">
-                  PTO
+                  Paid Off
+                </th>
+                <th scope="col" className="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider">
+                  PTO bank
                 </th>
                 <th scope="col" className="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider">
                  Current Status
@@ -103,7 +107,7 @@ function TimeOffRequestApprovals() {
                   <div className="flex items-center">
                     <div className="ml-4">
                       <div className="text-lg font-medium">
-                        {item.eid}
+                        {item.employee.firstName + " " + item.employee.lastName}
                       </div>
                     </div>
                   </div>
@@ -131,6 +135,15 @@ function TimeOffRequestApprovals() {
                     <div className="ml-4">
                       <div className="text-lg font-medium text-gray-500">
                         {item.isPaid}
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="flex items-center">
+                    <div className="ml-4">
+                      <div className="text-lg font-medium text-gray-500">
+                        {item.employee.ptoBank}
                       </div>
                     </div>
                   </div>

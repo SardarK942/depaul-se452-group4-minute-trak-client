@@ -4,18 +4,46 @@ export interface Project {
   name: string;
 }
 
-export type TimeoffsheetListData = TimeoffsheetListItem[];
+export type AdminTimeoffsheetListData = AdminTimeoffsheetListItem[];
 
-export interface TimeoffsheetListItem {
+export interface AdminTimeoffsheetListItem {
   rid: number;
   startDate: string;
   endDate: string;
   isApproved: boolean;
   isPaid: boolean;
-  eid: number;
+  employee: Employee;
+}
+
+
+export interface Employee {
+  email: String;
+  id: number;
+  password: String;
+  firstName: String;
+  lastName: String;
+  phone: String;
+  dob: Date;
+  address: String;
+  createdTime: Date;
+  isApproved: boolean;
+  isRejected: boolean;
+  ptoBank: number
 }
 /* Timesheet List */
 export type TimesheetListData = TimesheetListItem[];
+export type AdminTimesheetListData = AdminTimesheetListItem[];
+
+
+export interface AdminTimesheetListItem {
+  tid: number;
+  startDate: string;
+  endDate: string;
+  submitted: boolean;
+  approved: boolean;
+  rejected: boolean;
+  employee: Employee;
+}
 
 export interface TimesheetListItem {
   tid: number;

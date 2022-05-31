@@ -1,9 +1,10 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import adminAPI from '../../../apis/adminAPI';
+import timesheetAPI from '../../../apis/timesheetAPI';
 // import { useInput } from '../../../utility/customHooks';
 import  NavbarAdmin from '../../../components/common/navbar/NavbarAdmin';
-import { TimesheetListItem } from '../../../types/timesheetTypes';
+import { AdminTimesheetListItem } from '../../../types/timesheetTypes';
 import styles from './adminViews.module.css';
 
 
@@ -11,7 +12,7 @@ import styles from './adminViews.module.css';
 function TimesheetApprovals() {
   // const variable = useInput('');
 
-  const [timesheetList, setTimesheetList] = useState<TimesheetListItem[]>([]);
+  const [timesheetList, setTimesheetList] = useState<AdminTimesheetListItem[]>([]);
 
   
   useEffect(() => {
@@ -23,16 +24,16 @@ function TimesheetApprovals() {
   }, []);
 
 
-  function getAllTimeSheets(): Promise<TimesheetListItem[]> {
-    const data = adminAPI
-      .get('/getAllTimeSheets')
+  function getAllTimeSheets(): Promise<AdminTimesheetListItem[]> {
+    const data = timesheetAPI
+      .get('/list')
       .then((res) => res.data)
       .catch((e) => alert(e));
 
     return data;
   }
 
-  function respondToTime(bool: boolean, item: TimesheetListItem): any {
+  function respondToTime(bool: boolean, item: AdminTimesheetListItem): any {
     (bool ? item.approved = true : item.rejected = true);
     const data = adminAPI
       .get('/updateTimesheet', {
@@ -46,7 +47,7 @@ function TimesheetApprovals() {
     return data;
   }
 
-  function filterTimeSheetByPending(timesheetList: TimesheetListItem[]): TimesheetListItem[]{
+  function filterTimeSheetByPending(timesheetList: AdminTimesheetListItem[]): AdminTimesheetListItem[]{
       return timesheetList; //use filter 
   }
 
@@ -66,9 +67,9 @@ function TimesheetApprovals() {
               <th scope="col" className="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider">
                    tID
                 </th>
-                {/* <th scope="col" className="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider">
-                  Employee ID 
-                </th> */}
+                <th scope="col" className="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider">
+                  Employee Full Name 
+                </th>
                 <th scope="col" className="px-6 py-3 text-left text-sm font-medium uppercase tracking-wider">
                   Start Date
                 </th>
@@ -97,15 +98,15 @@ function TimesheetApprovals() {
                     </div>
                   </div>
                 </td>
-                {/* <td className="px-6 py-4 whitespace-nowrap" >
+                <td className="px-6 py-4 whitespace-nowrap" >
                   <div className="flex items-center">
                     <div className="ml-4">
                       <div className="text-lg font-medium">
-                        {item.eid}
+                        {item.employee.firstName + " " + item.employee.lastName}
                       </div>
                     </div>
                   </div>
-                </td> */}
+                </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center">
                     <div className="ml-4">
