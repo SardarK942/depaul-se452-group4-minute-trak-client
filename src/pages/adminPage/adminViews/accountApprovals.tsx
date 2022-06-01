@@ -46,7 +46,7 @@ function AccountApprovals() {
   }
 
   function filterEmployeesByPending(employeeList: Employee[]): Employee[]{
-      return employeeList; //use filter 
+        return employeeList.filter(item => !item.isApproved && !item.isRejected);
   }
 
 

@@ -47,7 +47,8 @@ function TimeOffRequestApprovals() {
   }
 
   function filterTimeOffSheetByPending(timeoffsheetList: AdminTimeoffsheetListItem[]): AdminTimeoffsheetListItem[]{
-      return timeoffsheetList; //use filter 
+      return timeoffsheetList.filter(item => !item.isApproved)
+
   }
 
 

@@ -48,7 +48,8 @@ function TimesheetApprovals() {
   }
 
   function filterTimeSheetByPending(timesheetList: AdminTimesheetListItem[]): AdminTimesheetListItem[]{
-      return timesheetList; //use filter 
+    return timesheetList.filter(item => !item.approved && !item.rejected);
+
   }
 
 
