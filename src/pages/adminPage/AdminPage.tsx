@@ -49,6 +49,8 @@ function AdminPage() {
   
 
   return (
+    <>
+    <NavbarAdmin></NavbarAdmin>
     <Box sx={{ position: 'relative', width: '100%', maxWidth: '40rem', margin: 'auto', marginTop: '15%' }}>
           <form onSubmit={handleClickLogin} className={`${styles.form} ${styles.isOn}`}>
       <Typography variant="h4" sx={{ textAlign: 'center', fontWeight: 'bold' }}>
@@ -69,6 +71,7 @@ function AdminPage() {
       </Button>
       </form>
     </Box>
+    </>
   );
 }
 

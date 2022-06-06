@@ -24,8 +24,8 @@ function TimeOffRequestApprovals() {
 
 
   function getAllTimeOffSheets(): Promise<AdminTimeoffsheetListItem[]> {
-    const data = requestAPI
-      .get('/list')
+    const data = adminAPI
+      .get('/getAllTimeOffRequests')
       .then((res) => res.data)
       .catch((e) => alert(e));
 

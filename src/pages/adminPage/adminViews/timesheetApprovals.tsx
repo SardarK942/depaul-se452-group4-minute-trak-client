@@ -25,11 +25,12 @@ function TimesheetApprovals() {
 
 
   function getAllTimeSheets(): Promise<AdminTimesheetListItem[]> {
-    const data = timesheetAPI
-      .get('/list')
+    const data = adminAPI
+      .get('/getAllTimeSheets')
       .then((res) => res.data)
       .catch((e) => alert(e));
 
+    
     return data;
   }
 

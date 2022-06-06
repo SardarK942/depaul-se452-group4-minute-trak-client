@@ -1,6 +1,11 @@
 import axios from 'axios';
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+import { getSessionToken } from '../utility/common';
+// const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export default axios.create({
-  baseURL: `${BASE_URL}/admin`,
+  baseURL: `localhost:8080/admin`,
+  headers: {
+    Authorization: `Bearer ${getSessionToken()}`,
+  },
+  withCredentials: true,
 });
